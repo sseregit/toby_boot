@@ -4,9 +4,13 @@ import java.util.Objects;
 
 class HelloController {
 
-    String hello(String name) {
+    private final HelloService helloService;
 
-        SimpleHelloService helloService = new SimpleHelloService();
+    public HelloController(HelloService helloService) {
+        this.helloService = helloService;
+    }
+
+    String hello(String name) {
 
         return helloService.sayHello(Objects.requireNonNull(name));
     }
