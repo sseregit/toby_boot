@@ -4,10 +4,12 @@ import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.*;
 import org.springframework.core.type.AnnotatedTypeMetadata;
+import org.springframework.util.ClassUtils;
+import toby.boot.config.ConditionalMyOnClass;
 import toby.boot.config.MyAutoConfiguration;
 
 @MyAutoConfiguration
-@Conditional(JettyWebServerConfig.JettyCondition.class)
+@ConditionalMyOnClass("org.eclipse.jetty.server.Server")
 class JettyWebServerConfig {
 
     @Bean("jettyWebServerFactory")
@@ -15,10 +17,4 @@ class JettyWebServerConfig {
         return new JettyServletWebServerFactory();
     }
 
-    static class JettyCondition implements Condition {
-        @Override
-        public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-            return false;
-        }
-    }
 }
