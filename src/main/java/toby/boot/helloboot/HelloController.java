@@ -16,7 +16,6 @@ class HelloController {
 
     @GetMapping("/hello")
     String hello(String name) {
-        System.out.println("name = " + name);
         if (Objects.isNull(name) || name.isEmpty()) throw new IllegalArgumentException();
 
         return helloService.sayHello(name);
