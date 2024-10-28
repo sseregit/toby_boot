@@ -3,11 +3,13 @@ package toby.boot.helloboot;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
 @Configuration
+@ComponentScan
 class HellobootApplication {
 
     public static void main(String[] args) {
@@ -15,8 +17,6 @@ class HellobootApplication {
             @Override
             protected void onRefresh() {
                 super.onRefresh();
-
-                System.out.println("HellobootApplication.onRefresh");
 
                 TomcatServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
                 WebServer webServer = serverFactory.getWebServer(servletContext -> {
@@ -29,16 +29,6 @@ class HellobootApplication {
         };
         applicationContext.register(HellobootApplication.class);
         applicationContext.refresh();
-    }
-
-    @Bean
-    HelloController helloController(HelloService helloService) {
-        return new HelloController(helloService);
-    }
-
-    @Bean
-    HelloService helloService() {
-        return new SimpleHelloService();
     }
 
 }
