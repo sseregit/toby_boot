@@ -7,7 +7,7 @@ import org.springframework.core.type.AnnotationMetadata;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyAutoConfigImportSelector implements DeferredImportSelector {
+class MyAutoConfigImportSelector implements DeferredImportSelector {
 
     private final ClassLoader classLoader;
 
