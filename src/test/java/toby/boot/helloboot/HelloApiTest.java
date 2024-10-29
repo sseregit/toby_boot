@@ -17,7 +17,7 @@ class HelloApiTest {
         //given
         //when
         //then
-        ResponseEntity<String> res = RestClient.create("http://localhost:8080")
+        ResponseEntity<String> res = RestClient.create("http://localhost:8080/app")
                 .get()
                 .uri("/hello?name={name}", "Spring")
                 .retrieve()
@@ -39,7 +39,7 @@ class HelloApiTest {
         //when
         //then
         ResponseEntity<String> res = new TestRestTemplate()
-                .getForEntity("http://localhost:8080/hello?name=", String.class);
+                .getForEntity("http://localhost:8080/app/hello?name=", String.class);
 
         assertThat(res.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
     }
