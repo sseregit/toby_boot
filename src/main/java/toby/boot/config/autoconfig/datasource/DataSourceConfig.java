@@ -2,19 +2,23 @@ package toby.boot.config.autoconfig.datasource;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+import org.springframework.jdbc.support.JdbcTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import toby.boot.config.ConditionalMyOnClass;
 import toby.boot.config.EnableMyConfigurationProperties;
 import toby.boot.config.MyAutoConfiguration;
-import toby.boot.config.MyConfigurationProperties;
 
 import javax.sql.DataSource;
 import java.sql.Driver;
 
 @MyAutoConfiguration
 @ConditionalMyOnClass("org.springframework.jdbc.core.JdbcOperations")
-@EnableMyConfigurationProperties(DataSourceConfig.MyDataSourceProperties.class)
+@EnableMyConfigurationProperties(MyDataSourceProperties.class)
+@EnableTransactionManagement
 public class DataSourceConfig {
 
     @Bean
@@ -22,7 +26,7 @@ public class DataSourceConfig {
     @ConditionalOnMissingBean
     DataSource hikariDataSource(MyDataSourceProperties properties) throws ClassNotFoundException {
         HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setDriverClassName(properties.driverClassName);
+        dataSource.setDriverClassName(properties.getDriverClassName());
         dataSource.setJdbcUrl(properties.getUrl());
         dataSource.setUsername(properties.getUsername());
         dataSource.setPassword(properties.getPassword());
@@ -40,43 +44,18 @@ public class DataSourceConfig {
         return dataSource;
     }
 
-    @MyConfigurationProperties(prefix = "data")
-    static class MyDataSourceProperties {
-        private String driverClassName;
-        private String url;
-        private String username;
-        private String password;
-
-        public String getDriverClassName() {
-            return driverClassName;
-        }
-
-        public void setDriverClassName(String driverClassName) {
-            this.driverClassName = driverClassName;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-
-        public void setUsername(String username) {
-            this.username = username;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
+    @Bean
+    @ConditionalOnSingleCandidate(DataSource.class)
+    @ConditionalOnMissingBean
+    JdbcClient jdbcClient(DataSource dataSource) {
+        return JdbcClient.create(dataSource);
     }
+
+    @Bean
+    @ConditionalOnSingleCandidate(DataSource.class)
+    @ConditionalOnMissingBean
+    JdbcTransactionManager jdbcTransactionManager(DataSource dataSource) {
+        return new JdbcTransactionManager(dataSource);
+    }
+
 }
