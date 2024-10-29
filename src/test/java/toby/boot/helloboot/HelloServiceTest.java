@@ -29,7 +29,17 @@ class HelloServiceTest {
     @Test
     void simpleHelloService() {
         //given
-        SimpleHelloService helloService = new SimpleHelloService();
+        SimpleHelloService helloService = new SimpleHelloService(new HelloRepository() {
+            @Override
+            public Hello findHello(String name) {
+                return null;
+            }
+
+            @Override
+            public void increase(String name) {
+
+            }
+        });
         //when
         String ret = helloService.sayHello("Spring");
         //then

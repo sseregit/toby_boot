@@ -16,14 +16,6 @@ public class JdbcTemplateTest {
     @Autowired
     JdbcClient jdbcClient;
 
-    @BeforeEach
-    void init() {
-        jdbcClient.sql("""
-                        create table if not exists hello(name varchar(50) primary key, count int)
-                        """)
-                .update();
-    }
-
     @Test
     void insertAndQuery() {
         jdbcClient.sql("""
