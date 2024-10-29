@@ -2,10 +2,10 @@ package toby.boot.helloboot;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jdbc.core.simple.JdbcClient;
-import toby.boot.config.MySpringBootApplication;
 
-@MySpringBootApplication
+@SpringBootApplication
 class HellobootApplication {
 
     private final JdbcClient jdbcClient;

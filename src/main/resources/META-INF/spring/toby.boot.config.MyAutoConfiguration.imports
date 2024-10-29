@@ -1,6 +1,0 @@
-toby.boot.config.autoconfig.web.TomcatWebServerConfig
-toby.boot.config.autoconfig.web.JettyWebServerConfig
-toby.boot.config.autoconfig.web.DispatcherServletConfig
-toby.boot.config.autoconfig.web.PropertyPlaceholderConfig
-toby.boot.config.autoconfig.web.PropertyPostProcessorConfig
-toby.boot.config.autoconfig.datasource.DataSourceConfig
