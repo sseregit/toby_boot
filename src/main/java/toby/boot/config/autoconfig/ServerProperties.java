@@ -1,5 +1,8 @@
 package toby.boot.config.autoconfig;
 
+import toby.boot.config.MyConfigurationProperties;
+
+@MyConfigurationProperties(prefix = "server")
 public class ServerProperties {
     private String contextPath;
     private int port;
