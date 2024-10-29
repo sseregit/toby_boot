@@ -1,4 +1,4 @@
-package toby.boot.config.autoconfig;
+package toby.boot.config.autoconfig.web;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;

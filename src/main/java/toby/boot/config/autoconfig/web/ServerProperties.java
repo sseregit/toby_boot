@@ -1,4 +1,4 @@
-package toby.boot.config.autoconfig;
+package toby.boot.config.autoconfig.web;
 
 import toby.boot.config.MyConfigurationProperties;
 

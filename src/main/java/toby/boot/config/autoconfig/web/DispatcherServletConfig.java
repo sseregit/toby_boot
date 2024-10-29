@@ -1,4 +1,4 @@
-package toby.boot.config.autoconfig;
+package toby.boot.config.autoconfig.web;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.DispatcherServlet;

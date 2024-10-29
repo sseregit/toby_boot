@@ -1,4 +1,4 @@
-package toby.boot.config.autoconfig;
+package toby.boot.config.autoconfig.web;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
