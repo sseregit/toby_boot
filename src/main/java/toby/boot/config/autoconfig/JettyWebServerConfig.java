@@ -1,12 +1,11 @@
 package toby.boot.config.autoconfig;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
-import org.springframework.core.type.AnnotatedTypeMetadata;
-import org.springframework.util.ClassUtils;
 import toby.boot.config.ConditionalMyOnClass;
 import toby.boot.config.MyAutoConfiguration;
 
@@ -14,11 +13,14 @@ import toby.boot.config.MyAutoConfiguration;
 @ConditionalMyOnClass("org.eclipse.jetty.server.Server")
 class JettyWebServerConfig {
 
+    @Value("${contextPath}")
+    String contextPath;
+
     @Bean("jettyWebServerFactory")
     @ConditionalOnMissingBean
-    ServletWebServerFactory servletWebServerFactory(Environment env) {
+    ServletWebServerFactory servletWebServerFactory() {
         JettyServletWebServerFactory factory = new JettyServletWebServerFactory();
-        factory.setContextPath(env.getProperty("contextPath"));
+        factory.setContextPath(this.contextPath);
         return factory;
     }
 

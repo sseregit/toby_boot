@@ -1,3 +1,4 @@
 toby.boot.config.autoconfig.TomcatWebServerConfig
 toby.boot.config.autoconfig.JettyWebServerConfig
 toby.boot.config.autoconfig.DispatcherServletConfig
+toby.boot.config.autoconfig.PropertyPlaceholderConfig
