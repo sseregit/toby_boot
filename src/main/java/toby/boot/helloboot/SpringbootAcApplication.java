@@ -16,16 +16,17 @@ public class SpringbootAcApplication {
     @Bean
     ApplicationRunner run1(ConditionEvaluationReport report) {
         return args -> {
-            report.getConditionAndOutcomesBySource()
+            System.out.println(report.getConditionAndOutcomesBySource()
                     .entrySet()
                     .stream()
                     .filter(co -> co.getValue().isFullMatch())
                     .filter(co -> co.getKey().indexOf("Jmx") < 0)
-                    .forEach(co -> {
+                    .map(co -> {
                         System.out.println(co.getKey());
                         co.getValue().forEach(c -> System.out.println("\t" + c.getOutcome()));
                         System.out.println();
-                    });
+                        return co;
+                    }).count());
         };
     }
 
